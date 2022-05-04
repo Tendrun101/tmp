@@ -1,0 +1,27 @@
+func findShortestSubArray(nums []int) int {
+    n := len(nums) 
+    cnt := map[int]int{}
+    l := map[int]int{}
+    r := map[int]int{}
+    ans := 0
+    for i, v := range nums {
+
+        if _, ok := cnt[v]; !ok {
+            l[v] = i 
+        }
+        cnt[v]++
+        if ans <= cnt[v]{
+            ans = cnt[v]
+        }
+        r[v] = i 
+    }
+    ans1 := n+1 
+    for k, v := range cnt {
+        if v == ans {
+            if ans1 >= (r[k] - l[k] + 1){
+                ans1 = (r[k] - l[k] + 1)
+            }
+        }
+    }
+    return ans1
+}
